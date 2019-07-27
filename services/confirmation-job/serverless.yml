@@ -1,0 +1,18 @@
+service: confirmation-job
+
+plugins:
+  - serverless-bundle
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-east-1
+  timeout: ${file(../../config.yml):timeout}
+
+functions:
+  main:
+    handler: handler.main
+    events:
+      - sns:
+        'Fn::ImportValue': '${opt:stage}-PurchasedTopicArn'
+

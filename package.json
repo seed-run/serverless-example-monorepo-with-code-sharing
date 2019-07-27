@@ -1,0 +1,13 @@
+{
+  "name": "serverless-example-monorepo-with-code-sharing",
+  "version": "1.0.0",
+  "description": "serverless-example-monorepo-with-code-sharing",
+  "main": "handler.js",
+  "scripts": {},
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-bundle": "^1.2.2"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,37 @@
+service: purchase-api
+
+plugins:
+  - serverless-bundle
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-east-1
+  timeout: ${file(../../config.yml):timeout}
+
+functions:
+  main:
+    handler: handler.main
+    environment:
+      PURCHASED_TOPIC_ARN:
+        Ref: PurchasedTopic
+    events:
+      - http:
+          path: /
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    PurchasedTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ${opt:stage}-purchased
+
+  Outputs:
+    PurchasedTopicArn:
+      Value:
+        Ref: PurchasedTopic
+      Export:
+        Name: ${opt:stage}-PurchasedTopicArn
+
